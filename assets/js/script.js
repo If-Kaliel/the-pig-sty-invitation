@@ -1,117 +1,73 @@
-
-
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
 
-ScrollSmoother.create({
+// Inicializa o ScrollSmoother
+const smoother = ScrollSmoother.create({
     smooth: 1.5,
     effects: true
 });
 
 function animarPagina() {
-    // ANIMAÇÕES DA HERO
+    // Hero Animation
+    const tlHero = gsap.timeline();
+    tlHero.from(".hero", { opacity: 0, duration: 1 })
+          .from(".hero-bg picture", { y: (i) => i ? 60 : -60, duration: 1.2, ease: "power2.out" }, "-=0.8");
 
-gsap.from(".hero", {
-    opacity: 0,
-    duration: 1
-})
-
-gsap.from("picture:nth-child(2)", {
-    y: 60,
-    duration: 1
-})
-
-gsap.from("picture:nth-child(1)", {
-    y: -60,
-    duration: 1
-})
-
-// ANIMAÇÕES CARDS
-
-
-gsap.from(".card", {
-    opacity: 0,
-    filter: "blur(10px)",
-    stagger: 0.3,
-    scrollTrigger: {
-        trigger: ".cards",
-        start: "0% 80%",
-        end: "100% 70%",
-        scrub: true,
-    }
-})
-
-gsap.from(".secaoObrigado ul li", {
-    opacity: 0,
-    x: 40,
-    filter: "blur(10px)",
-    stagger: 0.3,
-    scrollTrigger: {
-        trigger: ".secaoObrigado ul",
-        start: "0% 80%",
-        end: "100% 50%",
-        scrub: true,
-    }
-})
-
-// ANIMAÇÕES FOOTER
-
-gsap.from("footer", {
-    y: "-30%",
-    immediateRender: false,
-    scrollTrigger: {
-        trigger: "footer",
-        scrub: true,
-        ivalidateOnRefresh: true,
-        end: "100% 100%",
-    }
-})
-
-// LETRAS ANIMADAS
-
-
-// SELECIONE TODOS OS ELEMENTOS DA SUA PÁGINA COM A CLASSE .textoSplit
-const grupoTextoSplit = document.querySelectorAll(".textoSplit");
-
-// ANIMAR CADA ELEMENTO DESSE GRUPAMENTO
-
-grupoTextoSplit.forEach(textoUnicoSplit => {
-    const split = SplitText.create(".textoSplit", {
-        type: "lines,words,chars",
-        mask: "lines"
-    });
-
-    gsap.from(split.chars, {
-        y: 40,
+    // Cards Animation
+    gsap.from(".card", {
         opacity: 0,
-        duration: 0.3,
-        stagger: 0.03,
+        y: 50,
+        filter: "blur(10px)",
+        stagger: 0.2,
         scrollTrigger: {
-            trigger: textoUnicoSplit,
+            trigger: ".cards-container",
+            start: "top 85%",
+            end: "bottom 70%",
+            scrub: true
         }
     });
-})
+
+    // Social Section Animation
+    gsap.from(".social-list li", {
+        opacity: 0,
+        x: 30,
+        stagger: 0.2,
+        scrollTrigger: {
+            trigger: ".social-list",
+            start: "top 80%",
+            scrub: true
+        }
+    });
+
+    // SplitText simplificado e eficiente
+    const textos = document.querySelectorAll(".textoSplit");
+    textos.forEach(texto => {
+        const split = new SplitText(texto, { type: "chars, words" });
+        gsap.from(split.chars, {
+            scrollTrigger: {
+                trigger: texto,
+                start: "top 90%",
+            },
+            y: 20,
+            opacity: 0,
+            stagger: 0.02,
+            duration: 0.5,
+            ease: "power2.out"
+        });
+    });
 }
 
+// Preloader & Start
+window.addEventListener("load", () => {
+    const tlPreloader = gsap.timeline({
+        onComplete: animarPagina
+    });
 
-// PRELOADER
-
-const tl = gsap.timeline({
-    onComplete() {
-        animarPagina();
-        gsap.to("#preloader", {
-            opacity: 0,
-            display: "none" 
-        })
-    }
+    tlPreloader.to(".logo-preloader", { opacity: 1, scale: 1, duration: 0.8 })
+               .to("#preloader", { 
+                   yPercent: -100, 
+                   duration: 0.8, 
+                   ease: "expo.inOut",
+                   delay: 0.5 
+               })
+               .set("#preloader", { display: "none" });
 });
-
-tl.to("#preloader path", {
-    duration: 1,
-    strokeDashoffset: 0,
-})
-tl.to("#preloader path", {
-    fill: "rgb(168,19,19)",
-    duration: 0.5,
-    strokeDashoffset: 0,
-})
-

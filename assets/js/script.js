@@ -1,73 +1,71 @@
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
 
-// Inicializa o ScrollSmoother
 const smoother = ScrollSmoother.create({
     smooth: 1.5,
     effects: true
 });
 
 function animarPagina() {
-    // Hero Animation
-    const tlHero = gsap.timeline();
-    tlHero.from(".hero", { opacity: 0, duration: 1 })
-          .from(".hero-bg picture", { y: (i) => i ? 60 : -60, duration: 1.2, ease: "power2.out" }, "-=0.8");
+   
+    gsap.from(".hero", { opacity: 0, duration: 1 });
+    gsap.from(".hero picture:nth-child(1)", { y: -60, duration: 1.5, ease: "power2.out" });
+    gsap.from(".hero picture:nth-child(2)", { y: 60, duration: 1.5, ease: "power2.out" });
 
-    // Cards Animation
+
     gsap.from(".card", {
         opacity: 0,
         y: 50,
         filter: "blur(10px)",
         stagger: 0.2,
         scrollTrigger: {
-            trigger: ".cards-container",
+            trigger: ".cards",
             start: "top 85%",
             end: "bottom 70%",
-            scrub: true
+            scrub: true,
         }
     });
 
-    // Social Section Animation
-    gsap.from(".social-list li", {
+ 
+    gsap.from(".secaoObrigado ul li", {
         opacity: 0,
-        x: 30,
+        x: 40,
+        filter: "blur(10px)",
         stagger: 0.2,
         scrollTrigger: {
-            trigger: ".social-list",
+            trigger: ".secaoObrigado",
             start: "top 80%",
-            scrub: true
+            end: "bottom 60%",
+            scrub: true,
         }
     });
 
-    // SplitText simplificado e eficiente
-    const textos = document.querySelectorAll(".textoSplit");
-    textos.forEach(texto => {
-        const split = new SplitText(texto, { type: "chars, words" });
+  
+    const elementosSplit = document.querySelectorAll(".textoSplit");
+    elementosSplit.forEach(paragrafo => {
+        const split = new SplitText(paragrafo, { type: "chars, words" });
         gsap.from(split.chars, {
-            scrollTrigger: {
-                trigger: texto,
-                start: "top 90%",
-            },
-            y: 20,
             opacity: 0,
+            y: 20,
+            duration: 0.6,
             stagger: 0.02,
-            duration: 0.5,
-            ease: "power2.out"
+            scrollTrigger: {
+                trigger: paragrafo,
+                start: "top 90%",
+            }
         });
     });
 }
 
-// Preloader & Start
+
 window.addEventListener("load", () => {
-    const tlPreloader = gsap.timeline({
+    const tl = gsap.timeline({
         onComplete: animarPagina
     });
 
-    tlPreloader.to(".logo-preloader", { opacity: 1, scale: 1, duration: 0.8 })
-               .to("#preloader", { 
-                   yPercent: -100, 
-                   duration: 0.8, 
-                   ease: "expo.inOut",
-                   delay: 0.5 
-               })
-               .set("#preloader", { display: "none" });
+    tl.to("#preloader img", { scale: 1.2, duration: 0.5, yoyo: true, repeat: 1 })
+      .to("#preloader", { 
+          opacity: 0, 
+          display: "none", 
+          duration: 0.5 
+      });
 });

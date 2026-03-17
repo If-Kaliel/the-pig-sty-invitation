@@ -1,11 +1,3 @@
-/* --- VARIÁVEIS E RESET --- */
-:root {
-    --bg-dark: #0c0102;
-    --text-light: rgba(255, 255, 255, 0.9);
-    --font-main: "Poppins", sans-serif;
-    --font-display: "Benguiat", serif;
-}
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 @font-face {
@@ -14,157 +6,160 @@
 }
 
 body {
-    background-color: #fff;
-    color: var(--text-light);
-    font-family: var(--font-main);
-    overflow-x: hidden;
+    background-color: #ffffff;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: "Poppins", sans-serif;
+    overflow-x: hidden !important;
 }
 
-/* --- PRELOADER --- */
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 4vw;
+    position: absolute;
+    z-index: 9;
+}
+
+section { width: 100%; display: flex; padding: 7vw; }
+
+button { cursor: pointer; font-family: "Poppins"; border: none; background: transparent; }
+
+
 #preloader {
+    width: 100%;
+    height: 100vh;
+    background-color: #0c0102;
     position: fixed;
-    inset: 0;
-    background: var(--bg-dark);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 100;
 }
-.logo-preloader { width: 200px; opacity: 0; transform: scale(0.8); }
+#preloader img { width: 150px; height: auto; }
 
-/* --- HEADER --- */
-.main-header {
-    position: absolute;
-    width: 100%;
-    padding: 4vw;
-    z-index: 10;
-}
-.brand-logo { font-family: var(--font-display); font-size: 2rem; color: #fff; }
 
-/* --- HERO --- */
 .hero {
     height: 100vh;
+    align-items: center;
+    justify-content: space-between;
     position: relative;
-    display: flex;
-    align-items: flex-end;
-    padding: 7vw;
 }
-
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-}
-
-.hero-bg img { width: 100%; height: 100%; object-fit: cover; position: absolute; }
 
 .hero::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 0%, var(--bg-dark) 100%);
+    background: linear-gradient(180deg, rgba(12, 1, 2, 0) 0%, #0C0102 100%);
     z-index: 2;
+    
 }
 
-.hero-content {
+
+.hero picture { position: absolute; inset: 0; z-index: 1; }
+.hero picture img { width: 100%; height: 100%; object-fit: cover; }
+
+.hero .esquerda, .hero .direita { width: 30%; z-index: 3; }
+.hero .esquerda h3 { font-size: 24px; letter-spacing: 4px; }
+.hero .esquerda h1 { font-size: 5vw; font-family: "Benguiat"; }
+.hero .direita { display: flex; flex-direction: column; align-items: flex-end; }
+.hero .direita p { font-size: 2vw; margin-bottom: 32px; text-align: right; }
+.botaoPrincipal { border-bottom: 1px solid white; padding: 16px 0; display: flex; gap: 12px; }
+
+
+.bgMonstro {
+    background-image: url("/assets/img/bg-sec2.webp");
+    background-position: center;
+    background-size: cover;
+    z-index: 2;
     position: relative;
-    z-index: 3;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: flex-end;
+    background-color: #0c0102;
 }
 
-.titulo-principal { font-family: var(--font-display); font-size: 6vw; }
-.subtitulo { font-size: 1.5rem; letter-spacing: 4px; }
-.direita { text-align: right; max-width: 30%; }
-.direita p { font-size: 1.5vw; margin-bottom: 20px; }
-
-/* --- SEÇÕES GERAIS --- */
-.bg-dark-section { background: var(--bg-dark); position: relative; z-index: 4; }
-
-section { padding: 7vw; width: 100%; }
-
-.section-title { font-family: var(--font-display); font-size: 3vw; margin-bottom: 40px; }
-
-/* CARDS */
-.cards-container { display: flex; gap: 20px; }
+.secaoCidade { flex-direction: column; }
+.secaoCidade .cards { margin-top: 52px; display: flex; justify-content: space-between; gap: 20px; }
 .card {
-    flex: 1;
+    width: 32%;
     aspect-ratio: 16/9;
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: flex-end;
     padding: 20px;
-    border-radius: 4px;
 }
-.card-1 { background-image: url("/assets/img/card1.webp"); }
-.card-2 { background-image: url("/assets/img/card2.webp"); }
-.card-3 { background-image: url("/assets/img/card3.webp"); }
+.card:nth-child(1) { background-image: url("/assets/img/card1.webp"); }
+.card:nth-child(2) { background-image: url("/assets/img/card2.webp"); }
+.card:nth-child(3) { background-image: url("/assets/img/card3.webp"); }
 
-/* --- SEÇÃO SOCIAL (CORRIGIDA) --- */
-.secao-social {
-    display: flex;
+
+.secaoObrigado {
     flex-direction: column;
     align-items: center;
-    background: #fff;
-    color: #000;
-    text-shadow: 0 0 4px rgba(0,0,0,0.2);
+    z-index: 2;
+    position: relative;
+    color: rgb(255, 255, 255);
+    background-image: linear-gradient(to right, #ffffff, #ffffff, #ffffff);
+     text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000
 }
 
-.social-list {
+.secaoObrigado ul {
     display: flex;
     width: 100%;
     justify-content: space-around;
     list-style: none;
-    gap: 20px;
+    align-items: flex-start;
 }
+.secaoObrigado ul li { display: flex; flex-direction: column; align-items: center; flex: 1; text-align: center; }
+.secaoObrigado h1 { font-size: 1vw; margin-bottom: 30px; min-height: 2.5em; display: flex; align-items: center; }
+.secaoObrigado img { width: 100%; max-width: 180px; height: auto; }
+.efeitoHover { transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease; }
+.efeitoHover:hover { transform: scale(1.1) translateY(-10px); opacity: 0.8; filter: drop-shadow(0 0 10px #ffffff); }
 
-.social-list li {
+footer {
+    background: url("/assets/img/bg-footer.webp") center/cover;
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1;
-    text-align: center;
 }
 
-.social-list h1 { font-size: 1rem; margin-bottom: 20px; min-height: 3em; display: flex; align-items: center; }
+.conteudoFooter { display: flex; width: 100%; padding: 7vw; }
+.logoFooter { width: 100%; }
+.logoFooter h2 { font-size: 3.7vw; font-family: "Benguiat"; }
 
-.img-social { width: 100%; max-width: 160px; transition: transform 0.4s ease; }
-.efeitoHover:hover { transform: scale(1.1) translateY(-10px); filter: drop-shadow(0 0 10px rgba(0,0,0,0.3)); }
-
-/* --- FOOTER --- */
-.main-footer {
-    background: url("/assets/img/bg-footer.webp") center/cover;
-    padding-top: 5vw;
+.textoInfinito { width: max-content; display: flex; overflow: hidden; }
+.textoInfinito h3 {
+    color: rgb(191, 191, 191);
+    font-size: 12vw;
+    font-family: "Benguiat";
+    mix-blend-mode: color-dodge;
+    padding-left: 8vw;
+    animation: textoInfinito 10s infinite linear;
 }
 
-.footer-branding { padding: 0 7vw; }
-.font-benguiat { font-family: var(--font-display); font-size: 4vw; }
+@keyframes textoInfinito { 100% { transform: translateX(-100%); } }
 
-.marquee-footer { overflow: hidden; white-space: nowrap; padding: 40px 0; }
-.marquee-content h3 {
-    font-family: var(--font-display);
-    font-size: 10vw;
-    color: rgba(191, 191, 191, 0.3);
-    display: inline-block;
-    animation: marquee 15s linear infinite;
-}
 
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-/* --- RESPONSIVIDADE --- */
 @media (max-width: 1024px) {
-    .social-list { flex-wrap: wrap; }
-    .social-list li { width: 45%; flex: none; }
+    .secaoObrigado ul { flex-wrap: wrap; justify-content: center; gap: 40px; }
+    .secaoObrigado ul li { width: 45%; flex: none; }
+    .secaoObrigado h1 { font-size: 2.5vw; }
 }
 
 @media (max-width: 600px) {
-    .hero-content { flex-direction: column; align-items: center; text-align: center; }
-    .direita { max-width: 100%; text-align: center; margin-top: 20px; }
-    .titulo-principal { font-size: 12vw; }
-    .cards-container { flex-direction: column; }
-    .social-list { flex-direction: column; gap: 50px; }
-    .img-social { max-width: 130px; }
+    header img { width: 120px; }
+    .hero { flex-direction: column; padding-top: 30vh; }
+    .hero .esquerda, .hero .direita { width: 100%; text-align: center; align-items: center; }
+    .hero .esquerda h1 { font-size: 12vw; }
+    .hero .direita p { font-size: 5vw; text-align: center; }
+    
+    .secaoCidade .cards { flex-direction: column; }
+    .card { width: 100%; }
+
+    .secaoObrigado ul { flex-direction: column; align-items: center; gap: 50px; }
+    .secaoObrigado h1 { font-size: 5vw; min-height: auto; text-align: center; }
+    .secaoObrigado img { max-width: 140px; }
+    
+    footer .logoFooter h2 { font-size: 10vw; text-align: center; }
+    footer .logoFooter h3 { text-align: center; }
 }
